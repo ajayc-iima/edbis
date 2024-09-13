@@ -433,7 +433,7 @@ document.getElementById('reportsLink').addEventListener('click', function(e) {
 function sendEmail() {
     var email = document.getElementById('email').value;
     var query = document.getElementById('query').value;
-    var mailtoLink = 'mailto:edbis@iima.ac.in?subject=WebQuery Submission &body=From: ' + encodeURIComponent(email) + '%0D%0A%0D%0AQuery: ' + encodeURIComponent(query);
+    var mailtoLink = 'mailto:edbis@iima.ac.in?subject=WebQuery Submission &body=Query: ' + encodeURIComponent(query);
     window.location.href = mailtoLink;
     return false;
 }
