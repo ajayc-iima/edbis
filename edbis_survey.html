@@ -12,6 +12,7 @@
             --text-color: #333;
             --background-color: #ffffff;
             --accent-color: #e67e22;
+            --success-color: #2ecc71;
         }
         body, html {
             font-family: 'Open Sans', sans-serif;
@@ -26,28 +27,35 @@
             margin: 2rem auto;
             padding: 2rem;
             background-color: var(--secondary-color);
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
         }
         .header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .logo {
-            max-width: 400px;
+            max-width: 300px;
             height: auto;
             margin-bottom: 1rem;
         }
         h1 {
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            margin-top: 0rem;
-            font-weight: 600;
-
+            font-weight: 700;
         }
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #555;
             font-weight: 400;
         }
@@ -59,19 +67,20 @@
         }
         .company-info input, .company-info select {
             padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
             font-size: 1rem;
             width: 100%;
             box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
         }
         .company-info input:hover, .company-info select:hover {
             border-color: var(--primary-color);
         }
         .company-info input:focus, .company-info select:focus {
             outline: none;
-            box-shadow: 0 0 0 2px rgba(28, 71, 125, 0.2);
+            box-shadow: 0 0 0 3px rgba(28, 71, 125, 0.2);
+            border-color: var(--primary-color);
         }
         .questions-table {
             width: 100%;
@@ -88,9 +97,10 @@
             color: white;
             font-weight: 600;
             font-size: 1rem;
+            border-radius: 8px 8px 0 0;
         }
         .question {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 400;
             max-width: 250px;
         }
@@ -110,22 +120,24 @@
         .rating-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: var(--primary-color);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
         .rating-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(28, 71, 125, 0.5);
         }
         .rating-value {
             font-weight: 600;
             color: var(--primary-color);
             width: 100px;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
         .loading {
             display: none;
@@ -137,19 +149,23 @@
         button {
             background-color: var(--primary-color);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             margin-top: 1rem;
             float: right;
             font-weight: 600;
         }
         button:hover {
             background-color: #15365f;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        button:active {
+            transform: translateY(-1px);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         button:disabled {
@@ -158,9 +174,9 @@
         }
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background-color: #d3d3d3;
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
             margin-top: 1rem;
             clear: both;
@@ -177,8 +193,8 @@
             padding: 1rem;
             background-color: #f9f9f9;
             border-left: 4px solid var(--primary-color);
-            border-radius: 4px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
         .disclaimer:hover {
             transform: scale(1.02);
@@ -199,12 +215,15 @@
         .disclaimer-content {
             display: none;
             margin-top: 1rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
             opacity: 0;
         }
         .disclaimer-content.show {
             display: block;
             opacity: 1;
+        }
+        .questions-table tr {
+            transition: background-color 0.3s ease;
         }
         .questions-table tr:hover {
             background-color: rgba(28, 71, 125, 0.05);
@@ -221,7 +240,7 @@
             color: #fff;
             text-align: center;
             border-radius: 6px;
-            padding: 5px;
+            padding: 10px;
             position: absolute;
             z-index: 1;
             bottom: 125%;
@@ -229,6 +248,7 @@
             margin-left: -100px;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 0.9rem;
         }
         .tooltip:hover .tooltiptext {
             visibility: visible;
@@ -242,14 +262,85 @@
         .pulse {
             animation: pulse 1s infinite;
         }
+        .participation-question {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #e8f4fd;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .participation-question:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .participation-question h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .participation-options {
+            display: flex;
+            justify-content: space-around;
+        }
+        .participation-option {
+            display: flex;
+            align-items: center;
+        }
+        .participation-option input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        .completion-message {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            animation: fadeIn 1s ease-out;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://conference.iima.ac.in/arwibc/wp-content/uploads/2023/08/IIMA-MCFME-1024x368.jpg" style="margin-bottom: 0px;" alt="IIMA MCFME Logo" class="logo">
-            <h1>IIMA EDBIS Survey</h1>
-            <p class="subtitle">Ease of Doing Business in India</p>
+            <img src="https://conference.iima.ac.in/arwibc/wp-content/uploads/2023/08/IIMA-MCFME-1024x368.jpg" alt="IIMA MCFME Logo" class="logo">
+            <h1>EDBIS Compact Survey</h1>
+            <p class="subtitle">Ease of Doing Business in India Survey</p>
         </div>
         <form id="edbisForm">
             <div class="company-info">
@@ -279,12 +370,25 @@
                 <tbody id="questions"></tbody>
             </table>
 
+            <div class="participation-question">
+                <h3>Your Input Matters!</h3>
+                <p>Your insights are valuable. Would you be open to a detailed follow-up survey to help us understand the ease of doing business in India?</p>
+                <div class="participation-options">
+                    <label class="participation-option">
+                        <input type="radio" name="detailedSurvey" value="yes" required> Yes, I'd love to contribute further!
+                    </label>
+                    <label class="participation-option">
+                        <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
+                    </label>
+                </div>
+            </div>
+
             <div class="disclaimer">
                 <span class="disclaimer-toggle" onclick="toggleDisclaimer()">Click to view Confidentiality Disclaimer</span>
                 <div class="disclaimer-content" id="disclaimerContent">
                     <strong>CONFIDENTIALITY DISCLAIMER:</strong> This study is being conducted by the Misra Centre for Financial Markets and Economy (MCFME) at the Indian Institute of Management (IIM), Ahmedabad. The study will undertake a nationwide survey annually to collect information from Indian companies on their perception of the business environment. <strong>The information collected during the survey will be exclusively used for the production and dissemination of scholarly work. Name and any other information that enables identification will be kept confidential.</strong> Non-personally identifiable information and survey responses shared by each respondent will be combined with those gathered from other participants and analysed as part of a group.
                     <br><br>
-                    We appreciate your participation in the survey. Click on the <strong>Submit Survey</strong> button below to end the survey. Please note that once submitted, no further modifications can be made to the survey.
+                    We appreciate your participation in the survey. Click on the <strong>Submit</strong> button below to end the survey. Please note that once submitted, no further modifications can be made to the survey.
                     <br><br>
                     For any further queries, write to us at edbis@iima.ac.in.
                 </div>
@@ -295,6 +399,17 @@
         </form>
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
+        </div>
+        <div class="completion-message" id="completionMessage">
+            Thank you for completing the survey! Your input is highly valuable.
+        </div>
+    </div>
+
+    <div id="submissionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Thank You!</h2>
+            <p>Your survey has been submitted successfully. You will be redirected to the main website shortly.</p>
         </div>
     </div>
 
@@ -359,6 +474,7 @@
                 email: formData.email,
                 cin: formData.cin || '',
                 state: formData.state,
+                detailedSurvey: formData.detailedSurvey
             }).toString();
 
             Object.entries(formData.ratings).forEach(([question, rating]) => {
@@ -397,14 +513,19 @@
                     email: document.getElementById('email').value.trim(),
                     cin: document.getElementById('cin').value.trim(),
                     state: document.getElementById('state').value,
-                    ratings: { ...ratings }
+                    ratings: { ...ratings },
+                    detailedSurvey: document.querySelector('input[name="detailedSurvey"]:checked').value
                 };
 
                 await submitForm(formData);
-                alert('Thank you for completing the survey!');
                 
-                this.reset();
-                resetRatings();
+                // Show the modal
+                document.getElementById('submissionModal').style.display = 'block';
+                
+                // Set a timeout to redirect after 5 seconds
+                setTimeout(() => {
+                    window.location.href = '../';  // Replace with the actual main website URL
+                }, 5000);
                 
             } catch (error) {
                 alert('Error submitting survey. Please try again.');
@@ -453,6 +574,13 @@
                 return false;
             }
 
+            if (!document.querySelector('input[name="detailedSurvey"]:checked')) {
+                alert('Please indicate your willingness to participate in a detailed survey.');
+                document.querySelector('.participation-question').classList.add('pulse');
+                setTimeout(() => document.querySelector('.participation-question').classList.remove('pulse'), 1000);
+                return false;
+            }
+
             return true;
         }
 
@@ -481,6 +609,17 @@
 
             createQuestions();
             updateProgress();
+        });
+
+        // Close the modal when clicking on the close button or outside the modal
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            document.getElementById('submissionModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('submissionModal')) {
+                document.getElementById('submissionModal').style.display = 'none';
+            }
         });
     </script>
 </body>
