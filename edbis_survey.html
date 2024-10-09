@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIMA EDBIS Compact Survey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1c477d;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --background-color: #ffffff;
+            --accent-color: #e67e22;
+        }
+        body, html {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .logo {
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            margin-top: 0rem;
+            font-weight: 600;
+
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 400;
+        }
+        .company-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .company-info input, .company-info select {
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .company-info input:hover, .company-info select:hover {
+            border-color: var(--primary-color);
+        }
+        .company-info input:focus, .company-info select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(28, 71, 125, 0.2);
+        }
+        .questions-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .questions-table th, .questions-table td {
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .questions-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .question {
+            font-size: 0.95rem;
+            font-weight: 400;
+            max-width: 250px;
+        }
+        .rating-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .rating-slider:hover {
+            opacity: 1;
+        }
+        .rating-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .rating-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        .rating-value {
+            font-weight: 600;
+            color: var(--primary-color);
+            width: 100px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+            float: right;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #15365f;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #d3d3d3;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 1rem;
+            clear: both;
+        }
+        .progress {
+            width: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.5s ease;
+        }
+        .disclaimer {
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .disclaimer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .disclaimer strong {
+            color: var(--primary-color);
+        }
+        .disclaimer-toggle {
+            color: var(--primary-color);
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .disclaimer-toggle:hover {
+            color: #15365f;
+        }
+        .disclaimer-content {
+            display: none;
+            margin-top: 1rem;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .disclaimer-content.show {
+            display: block;
+            opacity: 1;
+        }
+        .questions-table tr:hover {
+            background-color: rgba(28, 71, 125, 0.05);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://conference.iima.ac.in/arwibc/wp-content/uploads/2023/08/IIMA-MCFME-1024x368.jpg" style="margin-bottom: 0px;" alt="IIMA MCFME Logo" class="logo">
+            <h1>IIMA EDBIS Survey</h1>
+            <p class="subtitle">Ease of Doing Business in India</p>
+        </div>
+        <form id="edbisForm">
+            <div class="company-info">
+                <input type="text" id="companyName" name="companyName" placeholder="Company Name" required>
+                <input type="email" id="email" name="email" placeholder="Email ID" required>
+                <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
+                <select id="state" name="state" required>
+                    <option value="">Select Major State/UT of Production</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <!-- Add other states here -->
+                </select>
+            </div>
+
+            <p style="font-weight: 600; color: var(--primary-color); margin-top: 2rem; margin-bottom: 1rem;">
+                Rate your perception of the ease of doing business, considering the following operational dimensions and government policy effects on your company:
+            </p>
+
+            <table class="questions-table">
+                <thead>
+                    <tr>
+                        <th>Ease of</th>
+                        <th>Rating</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="questions"></tbody>
+            </table>
+
+            <div class="disclaimer">
+                <span class="disclaimer-toggle" onclick="toggleDisclaimer()">Click to view Confidentiality Disclaimer</span>
+                <div class="disclaimer-content" id="disclaimerContent">
+                    <strong>CONFIDENTIALITY DISCLAIMER:</strong> This study is being conducted by the Misra Centre for Financial Markets and Economy (MCFME) at the Indian Institute of Management (IIM), Ahmedabad. The study will undertake a nationwide survey annually to collect information from Indian companies on their perception of the business environment. <strong>The information collected during the survey will be exclusively used for the production and dissemination of scholarly work. Name and any other information that enables identification will be kept confidential.</strong> Non-personally identifiable information and survey responses shared by each respondent will be combined with those gathered from other participants and analysed as part of a group.
+                    <br><br>
+                    We appreciate your participation in the survey. Click on the <strong>Submit Survey</strong> button below to end the survey. Please note that once submitted, no further modifications can be made to the survey.
+                    <br><br>
+                    For any further queries, write to us at edbis@iima.ac.in.
+                </div>
+            </div>
+
+            <div class="loading" id="loading">Submitting survey...</div>
+            <button type="submit">Submit Survey</button>
+        </form>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Business Registration, Permits and Approvals",
+            "Land Acquisition",
+            "Access to Finance",
+            "Access to Labour",
+            "Labour Market Flexibility",
+            "Law & Order",
+            "Resolving Contractual and Dispute Resolution"
+        ];
+
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrs7G1xh-cXtMwVT6UB8EvPI53oNC7SqKTP0kCMTaGEze2Jb16HECRU2FcQLiDYq-TmQ/exec';
+        const ratingLabels = ["Very Difficult", "Difficult", "Neutral", "Easy", "Very Easy"];
+        const ratings = {};
+
+        function createQuestions() {
+            const questionsContainer = document.getElementById('questions');
+            questions.forEach((question, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="question tooltip">
+                        ${question}
+                        <span class="tooltiptext">Rate your perception of ease for ${question}</span>
+                    </td>
+                    <td>
+                        <input type="range" min="1" max="5" value="3" class="rating-slider" id="slider${index}">
+                    </td>
+                    <td class="rating-value" id="value${index}">Neutral</td>
+                `;
+                questionsContainer.appendChild(row);
+
+                const slider = row.querySelector(`#slider${index}`);
+                const valueCell = row.querySelector(`#value${index}`);
+
+                slider.addEventListener('input', function() {
+                    const value = parseInt(this.value);
+                    valueCell.textContent = ratingLabels[value - 1];
+                    ratings[question] = value;
+                    updateProgress();
+                    valueCell.classList.add('pulse');
+                    setTimeout(() => valueCell.classList.remove('pulse'), 500);
+                });
+
+                ratings[question] = 3;
+            });
+        }
+
+        function updateProgress() {
+            const totalQuestions = questions.length;
+            const answeredQuestions = Object.keys(ratings).length;
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        async function submitForm(formData) {
+            let queryString = new URLSearchParams({
+                timestamp: formData.timestamp,
+                companyName: formData.companyName,
+                email: formData.email,
+                cin: formData.cin || '',
+                state: formData.state,
+            }).toString();
+
+            Object.entries(formData.ratings).forEach(([question, rating]) => {
+                queryString += `&${encodeURIComponent(question)}=${rating}`;
+            });
+
+            try {
+                await fetch(`${SCRIPT_URL}?${queryString}`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                return true;
+            } catch (error) {
+                console.error('Submission error:', error);
+                throw error;
+            }
+        }
+
+        document.getElementById('edbisForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            try {
+                loading.style.display = 'block';
+                submitButton.disabled = true;
+
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    companyName: document.getElementById('companyName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    cin: document.getElementById('cin').value.trim(),
+                    state: document.getElementById('state').value,
+                    ratings: { ...ratings }
+                };
+
+                await submitForm(formData);
+                alert('Thank you for completing the survey!');
+                
+                this.reset();
+                resetRatings();
+                
+            } catch (error) {
+                alert('Error submitting survey. Please try again.');
+                console.error('Error:', error);
+            } finally {
+                loading.style.display = 'none';
+                submitButton.disabled = false;
+            }
+        });
+
+        function resetRatings() {
+            questions.forEach((question, index) => {
+                ratings[question] = 3;
+                const valueCell = document.getElementById(`value${index}`);
+                const slider = document.getElementById(`slider${index}`);
+                if (valueCell && slider) {
+                    valueCell.textContent = "Neutral";
+                    slider.value = 3;
+                }
+            });
+            updateProgress();
+        }
+
+        function validateForm() {
+            const requiredFields = ['companyName', 'email', 'state'];
+            const missingFields = requiredFields.filter(field => 
+                !document.getElementById(field).value.trim()
+            );
+
+            if (missingFields.length > 0) {
+                alert('Please fill in all required fields.');
+                missingFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    element.classList.add('pulse');
+                    setTimeout(() => element.classList.remove('pulse'), 1000);
+                });
+                return false;
+            }
+
+            const emailField = document.getElementById('email');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailField.value.trim())) {
+                alert('Please enter a valid email address.');
+                emailField.classList.add('pulse');
+                setTimeout(() => emailField.classList.remove('pulse'), 1000);
+                return false;
+            }
+
+            return true;
+        }
+
+        function toggleDisclaimer() {
+            const content = document.getElementById('disclaimerContent');
+            content.classList.toggle('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const disclaimer = document.querySelector('.disclaimer');
+            const content = document.getElementById('disclaimerContent');
+
+            disclaimer.addEventListener('mouseenter', function() {
+                if (!content.classList.contains('show')) {
+                    disclaimer.style.transform = 'scale(1.02)';
+                    disclaimer.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                }
+            });
+
+            disclaimer.addEventListener('mouseleave', function() {
+                if (!content.classList.contains('show')) {
+                    disclaimer.style.transform = 'scale(1)';
+                    disclaimer.style.boxShadow = 'none';
+                }
+            });
+
+            createQuestions();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
