@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,39 +66,74 @@
         text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
     }
 
-    .metrics-grid {
-        line-height: 1.2;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-        gap: 10px;
-    }
+   .metrics-grid {
+    line-height: 1.2;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
 
-    .metric-item {
-        background-color: var(--secondary-color);
-        border-radius: 8px;
-        padding: 10px;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.metric-item {
+    background-color: var(--secondary-color);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 140px; /* Set a fixed height for consistency */
+}
 
-    .metric-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+.metric-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
-    .metric-item .emoji {
-        font-size: 1.5rem;
-    }
+.metric-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
 
-    .metric-item h4 {
-        font-size: 1rem;
-        margin-bottom: 5px;
-    }
+.metric-item:hover::before {
+    opacity: 1;
+}
 
-    .metric-item p {
-        font-size: 0.7rem;
-        color: #666;
-    }
+.metric-item .emoji {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.metric-item:hover .emoji {
+    transform: scale(1.2);
+}
+
+.metric-item h4 {
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0 5px;
+    font-weight: 600;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.metric-item:hover h4 {
+    color: #004080;
+}
 
     /* Button */
     .btn-custom {
@@ -247,7 +283,7 @@
 
                        <section id="methodology" class="methodology-section">
                             <h2 class="methodology-title" style="transition: all 0.3s ease;">IIMA-EDBIS Index : Key Dimensions</h2>
-                            <p>The <b>IIMA-EDBIS Index</b> presents <b>13 dimensions</b> to assess the business and regulatory environment in the Indian states and Union territories.</p>
+                            <p>The <b>IIMA-EDBIS Index</b> presents <b>12 dimensions</b> to assess the business and regulatory environment in the Indian states and Union territories.</p>
                             <div class="metrics-grid" id="metricsContainer">
                                 <!-- Metrics will be dynamically added here -->
                             </div>
@@ -329,21 +365,20 @@
 
     <script>
         // Metrics data
-        const metrics = [
-            { emoji: "📊", title: "Business Entry & Registration", description: "Ease of starting a business" },
-            { emoji: "⚖️", title: "Contracts & Dispute Resolution", description: "Ease of enforcing contracts" },
-            { emoji: "🏗️", title: "Access to Infrastructure", description: "Ease of accessing infrastructure" },
-            { emoji: "👥", title: "Human Resources & Skills", description: "Access to skilled workforce" },
-            { emoji: "💰", title: "Access to Finance", description: "Ease of getting finance" },
-            { emoji: "🎯", title: "Investment Incentives", description: "Policies to attract investment" },
-            { emoji: "👷", title: "Labour Market Flexibility", description: "Adaptability of labour market" },
-            { emoji: "💸", title: "Labour Costs", description: "Workforce expenses" },
-            { emoji: "🚛", title: "Flow of Goods", description: "Goods transport ease" },
-            { emoji: "👮", title: "Law & Order", description: "Business safety" },
-            { emoji: "🚪", title: "Business Exit", description: "Ease of closing business" },
-            { emoji: "🌿", title: "Environment & Sustainability", description: "Environmental practices" },
-            { emoji: "🏞️", title: "Land Acquisition", description: "Ease of acquiring land" }
-        ];
+  const metrics = [
+    { emoji: "🏢", title: "Business Registration, Permits and Approvals" },
+    { emoji: "🏗️", title: "Land Acquisition" },
+    { emoji: "🏦", title: "Access to Finance" },
+    { emoji: "🎓", title: "Access to Labour" },
+    { emoji: "🔄", title: "Labour Market Flexibility" },
+    { emoji: "🛡️", title: "Law & Order" },
+    { emoji: "⚖️", title: "Contracts & Dispute Resolution" },
+    { emoji: "🛣️", title: "Access to Infrastructure" },
+    { emoji: "🎁", title: "Investment Incentives" },
+    { emoji: "💼", title: "Labour Costs" },
+    { emoji: "🚪", title: "Business Exit" },
+    { emoji: "♻️", title: "Environment & Sustainability" }
+];
 
         // Team data
         const team = {
@@ -371,7 +406,6 @@
                     <div class="emoji">${metric.emoji}</div>
                     <h4><b>${metric.title
                 }</b></h4>
-                     ${metric.description} 
                 </div>
             `;
         }
@@ -441,3 +475,5 @@ function sendEmail() {
 
 
 </script>
+</body>
+</html>
