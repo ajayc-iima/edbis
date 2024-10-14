@@ -623,7 +623,7 @@ button:disabled {
             </div>
 
             <p style="font-weight: 600; color: var(--primary-color); margin-top: 1rem; margin-bottom: 0rem;">
-                Rate your perception of the following dimensions of interaction between the regulatory framework of the State/UT and the business operations of your company:
+                Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong>State/UT </strong>and the business operations of your company:
             </p>
 
             <table class="questions-table">
@@ -687,6 +687,7 @@ button:disabled {
             "Access to finance",
             "Recruitment of workers",
             "Termination of workers' contracts",
+            "Access to public goods & services",
             "Resolution of contractual and business disputes",
             "Enforcement of law and order"
         ];
@@ -700,10 +701,10 @@ button:disabled {
             questions.forEach((question, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td class="question tooltip">
+                    <!--td class="question tooltip">
                         ${question}
-                        <span class="tooltiptext">Rate your perception of ease for ${question}</span>
-                    </td>
+                        // <span class="tooltiptext">Rate your perception of ease for ${question}</span>
+                    </td-->
                     <td>
                         <input type="range" min="1" max="5" value="3" class="rating-slider" id="slider${index}">
                     </td>
