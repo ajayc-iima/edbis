@@ -687,7 +687,7 @@ button:disabled {
             "Access to finance",
             "Recruitment of workers",
             "Termination of workers' contracts",
-            "Access to public goods & services",
+            "Access to reliable public infrastructure",
             "Resolution of contractual and business disputes",
             "Enforcement of law and order"
         ];
@@ -701,10 +701,10 @@ button:disabled {
             questions.forEach((question, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <!--td class="question tooltip">
+                    <td class="question tooltip">
                         ${question}
                         // <span class="tooltiptext">Rate your perception of ease for ${question}</span>
-                    </td-->
+                    </td>
                     <td>
                         <input type="range" min="1" max="5" value="3" class="rating-slider" id="slider${index}">
                     </td>
