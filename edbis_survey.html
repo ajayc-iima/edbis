@@ -608,6 +608,17 @@ button:disabled {
     font-size: 0.875rem;
     color: #e74c3c;
 }
+
+input::placeholder, select option:first-child {
+        color: #999;
+    }
+    input:required::placeholder, select:required option:first-child {
+        color: #999;
+    }
+    input:required::placeholder::after, select:required option:first-child::after {
+        content: " *";
+        color: red;
+    }
 </style>
 </head>
 <body>
@@ -624,10 +635,10 @@ button:disabled {
 
         <form id="edbisForm">
             <div class="company-info">
-                <input type="text" id="companyName" name="companyName" placeholder="Company Name" required>
+                <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required>
                 <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
                 <select id="state" name="state" required>
-                    <option value="">Primary State/UT of Production of the Company</option>
+                    <option value="">Primary State/UT of Production of the Company *</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                     <option value="Assam">Assam</option>
