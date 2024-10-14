@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -560,7 +556,59 @@ button:disabled {
         height: 20px;
         border-radius: 10px;
         background: #d3d3d3;
-    </style>
+    }
+}
+
+.email-container {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Show the email container with a smooth transition */
+.email-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Wrapper for input with an icon */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.input-wrapper input[type="email"] {
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem; /* Extra space for the icon */
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused state for the email input field */
+.input-wrapper input[type="email"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(28, 71, 125, 0.2);
+    outline: none;
+}
+
+/* Error message styling */
+.error-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #e74c3c;
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -577,57 +625,51 @@ button:disabled {
         <form id="edbisForm">
             <div class="company-info">
                 <input type="text" id="companyName" name="companyName" placeholder="Company Name" required>
-                <input type="email" id="email" name="email" placeholder="Your Email ID" required>
-                    <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
-                 <select id="state" name="state" required>
+                <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
+                <select id="state" name="state" required>
                     <option value="">Primary State/UT of Production of the Company</option>
-    <option value="Andhra Pradesh">Andhra Pradesh</option>
-    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-    <option value="Assam">Assam</option>
-    <option value="Bihar">Bihar</option>
-    <option value="Chhattisgarh">Chhattisgarh</option>
-    <option value="Goa">Goa</option>
-    <option value="Gujarat">Gujarat</option>
-    <option value="Haryana">Haryana</option>
-    <option value="Himachal Pradesh">Himachal Pradesh</option>
-    <option value="Jharkhand">Jharkhand</option>
-    <option value="Karnataka">Karnataka</option>
-    <option value="Kerala">Kerala</option>
-    <option value="Madhya Pradesh">Madhya Pradesh</option>
-    <option value="Maharashtra">Maharashtra</option>
-    <option value="Manipur">Manipur</option>
-    <option value="Meghalaya">Meghalaya</option>
-    <option value="Mizoram">Mizoram</option>
-    <option value="Nagaland">Nagaland</option>
-    <option value="Odisha">Odisha</option>
-    <option value="Punjab">Punjab</option>
-    <option value="Rajasthan">Rajasthan</option>
-    <option value="Sikkim">Sikkim</option>
-    <option value="Tamil Nadu">Tamil Nadu</option>
-    <option value="Telangana">Telangana</option>
-    <option value="Tripura">Tripura</option>
-    <option value="Uttar Pradesh">Uttar Pradesh</option>
-    <option value="Uttarakhand">Uttarakhand</option>
-    <option value="West Bengal">West Bengal</option>
-    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-    <option value="Chandigarh">Chandigarh</option>
-    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-    <option value="Delhi">Delhi</option>
-    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-    <option value="Ladakh">Ladakh</option>
-    <option value="Lakshadweep">Lakshadweep</option>
-    <option value="Puducherry">Puducherry</option>
-                    <!-- Add other states here -->
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
                 </select>
-            
-               
             </div>
 
             <p style="font-weight: 600; color: #555; margin-top: 1rem; margin-bottom: 0rem;">
                 Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong><span style="color: var(--primary-color)">State/UT</span></strong> and the business operations of your company:
             </p>
-
-
 
             <table class="questions-table">
                 <thead>
@@ -651,6 +693,16 @@ button:disabled {
                         <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
                     </label>
                 </div>
+         <div id="followUpEmailContainer" class="email-container" style="display: none; margin-top: 1rem;">
+    <div class="input-wrapper">
+        <span class="input-icon">
+            <i class="fas fa-envelope"></i>
+        </span>
+        <input type="email" id="followUpEmail" name="followUpEmail" placeholder="Enter your email for the follow-up survey" required>
+    </div>
+    <small class="error-message" id="emailError" style="display: none; color: #e74c3c;">Please enter a valid email address.</small>
+</div>
+
             </div>
 
             <div class="disclaimer">
@@ -731,7 +783,6 @@ button:disabled {
             });
         }
 
-
         function updateProgress() {
             const totalQuestions = questions.length;
             const answeredQuestions = Object.keys(ratings).length;
@@ -743,10 +794,10 @@ button:disabled {
             let queryString = new URLSearchParams({
                 timestamp: formData.timestamp,
                 companyName: formData.companyName,
-                email: formData.email,
                 cin: formData.cin || '',
                 state: formData.state,
-                detailedSurvey: formData.detailedSurvey
+                detailedSurvey: formData.detailedSurvey,
+                followUpEmail: formData.followUpEmail || ''
             }).toString();
 
             Object.entries(formData.ratings).forEach(([question, rating]) => {
@@ -782,11 +833,11 @@ button:disabled {
                 const formData = {
                     timestamp: new Date().toISOString(),
                     companyName: document.getElementById('companyName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
                     cin: document.getElementById('cin').value.trim(),
                     state: document.getElementById('state').value,
                     ratings: { ...ratings },
-                    detailedSurvey: document.querySelector('input[name="detailedSurvey"]:checked').value
+                    detailedSurvey: document.querySelector('input[name="detailedSurvey"]:checked').value,
+                    followUpEmail: document.getElementById('followUpEmail').value.trim()
                 };
 
                 await submitForm(formData);
@@ -796,7 +847,7 @@ button:disabled {
                 
                 // Set a timeout to redirect after 5 seconds
                 setTimeout(() => {
-                    window.location.href = 'https://www.iima.ac.in/faculty-research/centers/Misra-Centre-for-Financial-Markets-and-Economy';  // Replace with the actual main website URL
+                    window.location.href = 'https://www.iima.ac.in/faculty-research/centers/Misra-Centre-for-Financial-Markets-and-Economy';
                 }, 2000);
                 
             } catch (error) {
@@ -821,40 +872,70 @@ button:disabled {
             updateProgress();
         }
 
-        function validateForm() {
-            const requiredFields = ['companyName', 'email', 'state'];
-            const missingFields = requiredFields.filter(field => 
-                !document.getElementById(field).value.trim()
-            );
-
-            if (missingFields.length > 0) {
-                alert('Please fill in all required fields.');
-                missingFields.forEach(field => {
-                    const element = document.getElementById(field);
-                    element.classList.add('pulse');
-                    setTimeout(() => element.classList.remove('pulse'), 1000);
-                });
-                return false;
-            }
-
-            const emailField = document.getElementById('email');
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(emailField.value.trim())) {
-                alert('Please enter a valid email address.');
-                emailField.classList.add('pulse');
-                setTimeout(() => emailField.classList.remove('pulse'), 1000);
-                return false;
-            }
-
-            if (!document.querySelector('input[name="detailedSurvey"]:checked')) {
-                alert('Please indicate your willingness to participate in a detailed survey.');
-                document.querySelector('.participation-question').classList.add('pulse');
-                setTimeout(() => document.querySelector('.participation-question').classList.remove('pulse'), 1000);
-                return false;
-            }
-
-            return true;
+        document.querySelectorAll('input[name="detailedSurvey"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const followUpEmailContainer = document.getElementById('followUpEmailContainer');
+        const followUpEmailField = document.getElementById('followUpEmail');
+        if (this.value === 'yes') {
+            followUpEmailContainer.style.display = 'block';
+            followUpEmailField.setAttribute('required', 'required'); // Make email required
+        } else {
+            followUpEmailContainer.style.display = 'none';
+            followUpEmailField.removeAttribute('required'); // Remove required attribute
+            followUpEmailField.value = ''; // Clear email field
         }
+    });
+});
+
+function validateForm() {
+    const requiredFields = ['companyName', 'state'];
+    const missingFields = requiredFields.filter(field => 
+        !document.getElementById(field).value.trim()
+    );
+
+    if (missingFields.length > 0) {
+        alert('Please fill in all required fields.');
+        missingFields.forEach(field => {
+            const element = document.getElementById(field);
+            element.classList.add('pulse');
+            setTimeout(() => element.classList.remove('pulse'), 1000);
+        });
+        return false;
+    }
+
+    // Check if the user has selected a detailed survey option
+    const detailedSurveyOption = document.querySelector('input[name="detailedSurvey"]:checked');
+    if (!detailedSurveyOption) {
+        alert('Please indicate your willingness to participate in a detailed survey.');
+        document.querySelector('.participation-question').classList.add('pulse');
+        setTimeout(() => document.querySelector('.participation-question').classList.remove('pulse'), 1000);
+        return false;
+    }
+
+    // Get the value of the selected option
+    const detailedSurveyValue = detailedSurveyOption.value;
+    if (detailedSurveyValue === 'yes') {
+        const followUpEmail = document.getElementById('followUpEmail').value.trim();
+        if (!followUpEmail) {
+            alert('Please enter your email for the follow-up survey.');
+            document.getElementById('followUpEmail').classList.add('pulse');
+            setTimeout(() => document.getElementById('followUpEmail').classList.remove('pulse'), 1000);
+            return false;
+        }
+        // Check for a valid email address
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(followUpEmail)) {
+            alert('Please enter a valid email address for the follow-up survey.');
+            document.getElementById('followUpEmail').classList.add('pulse');
+            setTimeout(() => document.getElementById('followUpEmail').classList.remove('pulse'), 1000);
+            return false;
+        }
+    } 
+
+    return true; // Validation passed
+}
+
+
+
 
         function toggleDisclaimer() {
             const content = document.getElementById('disclaimerContent');
@@ -874,43 +955,65 @@ button:disabled {
 
             disclaimer.addEventListener('mouseleave', function() {
                 if (!content.classList.contains('show')) {
-                    disclaimer.style.transform = 'scale(1)';
-                    disclaimer.style.boxShadow = 'none';
+                    disclaimer.style.transform = '';
+                    disclaimer.style.boxShadow = '';
                 }
             });
-
-            createQuestions();
-            updateProgress();
         });
 
-        // Close the modal when clicking on the close button or outside the modal
-        document.querySelector('.close-modal').addEventListener('click', function() {
+        document.querySelectorAll('input[name="detailedSurvey"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const followUpEmailContainer = document.getElementById('followUpEmailContainer');
+                if (this.value === 'yes') {
+                    followUpEmailContainer.style.display = 'block';
+                } else {
+                    followUpEmailContainer.style.display = 'none';
+                    document.getElementById('followUpEmail').value = '';
+                }
+            });
+        });
+
+        // Close modal when clicking on the close button or outside the modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
             document.getElementById('submissionModal').style.display = 'none';
         });
 
-        window.addEventListener('click', function(event) {
-            if (event.target == document.getElementById('submissionModal')) {
+        window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('submissionModal')) {
                 document.getElementById('submissionModal').style.display = 'none';
             }
         });
 
-         const header = document.querySelector('.header');
-        
+        // Add mousemove event listener to the header for the radial gradient effect
+        const header = document.querySelector('.header');
         header.addEventListener('mousemove', (e) => {
             const rect = header.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / header.clientWidth) * 100;
-            const y = ((e.clientY - rect.top) / header.clientHeight) * 100;
-            
-            header.style.setProperty('--mouse-x', `${x}%`);
-            header.style.setProperty('--mouse-y', `${y}%`);
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            header.style.setProperty('--mouse-x', `${x}px`);
+            header.style.setProperty('--mouse-y', `${y}px`);
         });
 
-        // Remove glow effect when mouse leaves the header
-        header.addEventListener('mouseleave', () => {
-            header.style.setProperty('--mouse-x', '50%');
-            header.style.setProperty('--mouse-y', '50%');
-        });
+        createQuestions();
+        updateProgress();
+document.querySelectorAll('input[name="detailedSurvey"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const followUpEmailContainer = document.getElementById('followUpEmailContainer');
+        const followUpEmailField = document.getElementById('followUpEmail');
+        
+        if (this.value === 'yes') {
+            followUpEmailContainer.classList.add('show');
+            followUpEmailField.setAttribute('required', 'required'); // Make email required
+        } else {
+            followUpEmailContainer.classList.remove('show');
+            followUpEmailField.removeAttribute('required'); // Remove required attribute
+            followUpEmailField.value = ''; // Clear email field
+            document.getElementById('emailError').style.display = 'none'; // Hide any error message
+        }
+    });
+});
+
+
     </script>
 </body>
 </html>
-
