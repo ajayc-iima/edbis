@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -337,44 +338,6 @@ button:disabled {
   background-color: rgba(28, 71, 125, 0.05);
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: help;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: var(--text-color);
-  color: var(--background-color);
-  text-align: center;
-  border-radius: var(--border-radius);
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition: var(--transition);
-  font-size: 0.9rem;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.pulse {
-  animation: pulse 1s infinite;
-}
 
 .participation-options {
   display: flex;
@@ -759,6 +722,65 @@ input[type="email"]::placeholder {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+.info-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-left: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.info-icon-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    transition: all 0.3s ease;
+}
+
+.info-icon:hover .info-icon-inner {
+    background-color: #2980b9;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #34495e;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 250px;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tooltip.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px);
+}
+
+.question {
+    position: relative;
+}
+
 </style>
 </head>
 <body>
@@ -823,7 +845,7 @@ input[type="email"]::placeholder {
                 Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong><span style="color: var(--primary-color)">State/UT</span></strong> and the business operations of your company:
             </p>
 <p style="font-weight: 100;margin-top: 0rem; margin-bottom: 0rem; "> <i>(The scale varies from "Very Difficult" to "Very Easy")</i></p>
-		
+        
 
             <table class="questions-table">
                 <thead>
@@ -898,52 +920,95 @@ input[type="email"]::placeholder {
     </div>
 
     <script>
-        const questions = [
-            "Obtaining permits and approvals",
-            "Acquisition of land",
-            "Access to finance",
-            "Recruitment of workers",
-            "Flexibility to reduce workforce",
-            "Access to reliable public infrastructure",
-            "Resolution of contractual and business disputes",
-            "Seeking law and order assistance"
-        ];
+const questions = [
+    {
+        text: "Obtaining permits and approvals",
+        description: "Ease of acquiring necessary licenses and permissions from government authorities"
+    },
+    {
+        text: "Acquisition of land",
+        description: "Simplicity of purchasing or leasing property for business purposes"
+    },
+    {
+        text: "Access to finance",
+        description: "Availability and accessibility of loans, investments, or other financial resources"
+    },
+    {
+        text: "Recruitment of workers",
+        description: "Ability to find and hire qualified employees"
+    },
+    {
+        text: "Flexibility to reduce workforce",
+        description: "Ease of adjusting staff size in response to business needs"
+    },
+    {
+        text: "Access to reliable public infrastructure",
+        description: "Quality and dependability of roads, electricity, water supply, etc."
+    },
+    {
+        text: "Resolution of contractual and business disputes",
+        description: "Efficiency of legal system in resolving commercial conflicts"
+    },
+    {
+        text: "Seeking law and order assistance",
+        description: "Responsiveness and effectiveness of law enforcement when needed"
+    }
+];
 
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrwEZa8HZ0YZZHIEH_lEK8sKmuZvbHuhC3u6OEw8oKIf_p0t8zO2uafaZLm41ATEb41w/exec';
         const ratingLabels = ["Very Difficult", "Difficult", "Neutral", "Easy", "Very Easy"];
         const ratings = {};
+        function getRandomRating() {
+    return Math.floor(Math.random() * 5) + 1;
+}
 
-        function createQuestions() {
-            const questionsContainer = document.getElementById('questions');
-            questions.forEach((question, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="question tooltip">
-                        ${question}
-                         <span class="tooltiptext">Rate your perception of ease for ${question}</span>
-                    </td>
-                    <td>
-                        <input type="range" min="1" max="5" value="3" class="rating-slider" id="slider${index}">
-                    </td>
-                    <td class="rating-value" id="value${index}">Neutral</td>
-                `;
-                questionsContainer.appendChild(row);
+ function createQuestions() {
+    const questionsContainer = document.getElementById('questions');
+    questions.forEach((questionObj, index) => {
+        const row = document.createElement('tr');
+        const randomValue = getRandomRating();
+        row.innerHTML = `
+            <td class="question">
+                ${questionObj.text}
+                <span class="info-icon" data-index="${index}"><span class="info-icon-inner">i</span></span>
+                <div class="tooltip" id="tooltip${index}">${questionObj.description}</div>
+            </td>
+            <td>
+                <input type="range" min="1" max="5" value="${randomValue}" class="rating-slider" id="slider${index}">
+            </td>
+            <td class="rating-value" id="value${index}">${ratingLabels[randomValue - 1]}</td>
+        `;
+        questionsContainer.appendChild(row);
+        const slider = row.querySelector(`#slider${index}`);
+        const valueCell = row.querySelector(`#value${index}`);
+        slider.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            valueCell.textContent = ratingLabels[value - 1];
+            ratings[questionObj.text] = value;
+            updateProgress();
+            valueCell.classList.add('pulse');
+            setTimeout(() => valueCell.classList.remove('pulse'), 500);
+        });
+        ratings[questionObj.text] = randomValue;
+    });
 
-                const slider = row.querySelector(`#slider${index}`);
-                const valueCell = row.querySelector(`#value${index}`);
+    // Add click event listeners to info icons
+    document.querySelectorAll('.info-icon').forEach(icon => {
+        icon.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the click from propagating to the document
+            const tooltipId = `tooltip${this.dataset.index}`;
+            const tooltip = document.getElementById(tooltipId);
+            tooltip.classList.toggle('show');
+        });
+    });
 
-                slider.addEventListener('input', function() {
-                    const value = parseInt(this.value);
-                    valueCell.textContent = ratingLabels[value - 1];
-                    ratings[question] = value;
-                    updateProgress();
-                    valueCell.classList.add('pulse');
-                    setTimeout(() => valueCell.classList.remove('pulse'), 500);
-                });
-
-                ratings[question] = 3;
-            });
-        }
+    // Close tooltip when clicking outside
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.tooltip').forEach(tooltip => {
+            tooltip.classList.remove('show');
+        });
+    });
+}
 
         function updateProgress() {
             const totalQuestions = questions.length;
