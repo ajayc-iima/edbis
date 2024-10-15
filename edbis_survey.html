@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 
- :root {
+:root {
   --primary-color: #1C477D;
   --secondary-color: #F0F0F0;
   --text-color: #333333;
@@ -338,7 +338,6 @@ button:disabled {
   background-color: rgba(28, 71, 125, 0.05);
 }
 
-
 .participation-options {
   display: flex;
   justify-content: space-around;
@@ -528,14 +527,6 @@ input[type="email"]::placeholder {
   box-shadow: 0 0 0 3px rgba(28, 71, 125, 0.2);
 }
 
-.error-message {
-  display: block;
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--error-color);
-  font-weight: 500;
-  transition: var(--transition);
-}
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -760,7 +751,7 @@ input[type="email"]::placeholder {
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding:8px 12px;
     z-index: 1;
     left: 50%;
     transform: translateX(-50%);
@@ -771,6 +762,7 @@ input[type="email"]::placeholder {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+
 .tooltip.show {
     display: block;
     opacity: 1;
@@ -780,6 +772,22 @@ input[type="email"]::placeholder {
 .question {
     position: relative;
 }
+
+
+@media (max-width: 768px) {
+    .tooltip {
+        font-size: 12px; /* Adjust the font size for better readability */
+        max-width: 200px; /* Decrease the max width to fit smaller screens */
+        padding: 6px 10px; /* Adjust padding for a more compact look */
+        transform: translateX(-50%) translateY(10px); /* Move the tooltip slightly to prevent overlap */
+    }
+
+    .tooltip.show {
+        transform: translateX(-50%) translateY(8px); /* Adjust transition to be consistent with the smaller size */
+    }
+}
+
+
 
 </style>
 </head>
