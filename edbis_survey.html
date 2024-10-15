@@ -1015,13 +1015,19 @@ const questions = [
 
     // Add click event listeners to info icons
     document.querySelectorAll('.info-icon').forEach(icon => {
-        icon.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent the click from propagating to the document
-            const tooltipId = `tooltip${this.dataset.index}`;
-            const tooltip = document.getElementById(tooltipId);
-            tooltip.classList.toggle('show');
+    icon.addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent the click from propagating to the document
+
+        // Close all other tooltips
+        document.querySelectorAll('.tooltip').forEach(tooltip => {
+            tooltip.classList.remove('show');
         });
+
+        const tooltipId = `tooltip${this.dataset.index}`;
+        const tooltip = document.getElementById(tooltipId);
+        tooltip.classList.toggle('show');
     });
+});
 
     // Close tooltip when clicking outside
     document.addEventListener('click', function() {
