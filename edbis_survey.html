@@ -835,16 +835,21 @@ input[type="text"]::placeholder {
 /* Advanced Media Query for mobile screens */
 @media (max-width: 600px) {
 
-  .questions-table th, .questions-table td {
+  .questions-table td, .questions-table th {
     padding: 0.5rem; /* Reduce padding for mobile */
   }
 
-  .questions-table th:last-child, .questions-table td:last-child {
-    font-size: 0.8rem; /* Further reduce the text size of the last column */
-    width: auto; /* Allow it to adjust to content */
-    white-space: nowrap; /* Prevent wrapping for small text in last column */
-    text-align: right; /* Align right for better presentation */
+  .questions-table td:last-child {
+    font-size: 0.9rem; /* Make the text smaller in the last column */
+    width: 60px; /* Adjust the width of the last column */
   }
+
+   .questions-table td:first-child {
+    font-size: 0.9rem; /* Make the text smaller in the last column */
+    width: 150px; /* Adjust the width of the last column */
+  }
+
+
 
 
   /* Further UI tweaks for small screens */
