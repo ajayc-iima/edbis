@@ -849,12 +849,13 @@ input[type="text"]::placeholder {
       <form id="edbisForm">
     <div class="company-info modern-input-container">
         <!-- Company Name Input Field with Lock Icon -->
-        <div class="input-wrapper modern-input">
-            <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer">
-                <i class="fas fa-lock"></i>
-            </span>
-            <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required>
-        </div>
+       <div class="input-wrapper modern-input" style="position: relative;">
+    <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required style="padding-right: 30px;">
+    <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+        <i class="fas fa-lock"></i>
+    </span>
+</div>
+
 
         <!-- CIN/LLPIN/FCRN Input Field -->
         <div class="input-wrapper">
