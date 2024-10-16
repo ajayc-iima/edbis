@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -831,7 +832,17 @@ input[type="text"]::placeholder {
     box-shadow: 0 0 0 3px rgba(28, 71, 125, 0.2);
 }
 
-
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  .questions-table td:last-child {
+    font-size: 0.95rem; /* Make the text smaller in the last column */
+    width: 60px; /* Adjust the width of the last column */
+  }
+  .questions-table td:first-child {
+    font-size: 1rem; /* Make the text smaller in the last column */
+    width: 150px; /* Adjust the width of the last column */
+  }
+}
 </style>
 </head>
 <body>
