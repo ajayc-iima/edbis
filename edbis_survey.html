@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,9 +151,9 @@ h1::after {
 
 .company-info input, .company-info select, .form-input {
   padding: 0.75rem;
-  border: 2px solid #ccc;
+  border: 2px solid #cccccc4a;
   border-radius: var(--border-radius);
-  font-size: 1rem;
+  font-size: 0.9rem;
   width: 100%;
   box-sizing: border-box;
   transition: var(--transition);
@@ -497,7 +498,7 @@ button[type="submit"]:hover {
   background: var(--background-color);
   border: 2px solid #e0e0e0;
   border-radius: var(--border-radius);
-  padding: 8px 15px;
+  padding: 8px 10px;
   transition: var(--transition);
 }
 
@@ -800,6 +801,47 @@ input[type="email"]::placeholder {
     }
 }
 
+.modern-input {
+    display: flex;
+    align-items: center;
+    background: var(--background-color);
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 8px 15px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.input-icon {
+    color: var(--primary-color);
+    font-size: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.input-icon:hover {
+    color: #2980b9;
+}
+
+input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--text-color);
+    background: transparent;
+}
+
+input[type="text"]::placeholder {
+    color: #bdc3c7;
+}
+
+.modern-input:hover,
+.modern-input:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(28, 71, 125, 0.2);
+}
 
 
 </style>
@@ -816,114 +858,103 @@ input[type="email"]::placeholder {
             </div>
         </div>
 
-        <form id="edbisForm">
-            <div class="company-info">
-                <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required>
-                <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
-                <select id="state" name="state" required>
-                    <option value="">Primary State/UT of Production of the Company *</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Ladakh">Ladakh</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
+      <form id="edbisForm">
+    <div class="company-info modern-input-container">
+        <!-- Company Name Input Field with Lock Icon -->
+        <div class="input-wrapper modern-input">
+            <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer">
+                <i class="fas fa-lock"></i>
+            </span>
+            <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required>
+        </div>
 
-                </select>
-            </div>
+        <!-- CIN/LLPIN/FCRN Input Field -->
+        <div class="input-wrapper">
+            <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
+        </div>
 
-            <p style="font-weight: 600; color: #555; margin-top: 1rem; margin-bottom: 0rem;">
-                Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong><span style="color: var(--primary-color)">State/UT</span></strong> and the business operations of your company:
-            </p>
-<p style="font-weight: 100;margin-top: 0rem; margin-bottom: 0rem; "> <i>(The scale varies from "Very Difficult" to "Very Easy")</i></p>
-        
-
-            <table class="questions-table">
-                <thead>
-                    <tr>
-                        <th>Ease of</th>
-                        <th>Rating</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="questions"></tbody>
-            </table>
-
-            <div class="participation-question">
-                <h3>Your Input Matters!</h3>
-                <p>Thank you for your insights. Would you be willing to participate in a detailed follow-up survey to help provide an in-depth assessment of the ease of doing business in Indian states?</p>
-                <div class="participation-options">
-                    <label class="participation-option">
-                        <input type="radio" name="detailedSurvey" value="yes" required> Yes, I'd love to contribute further!
-                    </label>
-                    <label class="participation-option">
-                        <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
-                    </label>
-                </div>
-                <div id="followUpEmailContainer" class="email-container" style="display: none; margin-top: 1rem;">
-                    <div class="input-container">
-                        <label for="followUpEmail" class="input-label">Please provide your email ID for further correspondence regarding the detailed survey:</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">
-                                <i class="fas fa-envelope"></i>
-                            </span>
-                            <input type="email" id="followUpEmail" name="followUpEmail" placeholder="Enter your email ID" required>
-                        </div>
-                        <small class="error-message" id="emailError" style="display: none;">Please enter a valid email address.</small>
-                    </div>
-                </div>
-            </div>
-
-<div class="disclaimer-container">
-    <div class="disclaimer">
-        <span class="disclaimer-toggle" onclick="toggleDisclaimer()">Click to view Confidentiality Disclaimer</span>
-        <div class="disclaimer-content" id="disclaimerContent">
-            <strong>CONFIDENTIALITY DISCLAIMER:</strong> This study is being conducted by the Misra Centre for Financial Markets and Economy (MCFME) at the Indian Institute of Management (IIM), Ahmedabad. The study will undertake a nationwide survey annually to collect information from Indian companies on their perception of the business environment. <strong>The information collected during the survey will be exclusively used for the production and dissemination of scholarly work. Company name and any other information that enables identification will be kept confidential.</strong> Non-personally identifiable information and survey responses shared by each respondent will be combined with those gathered from other participants and analysed as part of a group.
-            <br><br>
-            We appreciate your participation in the survey. Click on the <strong>Submit Survey</strong> button to end the survey. Please note that once submitted, no further modifications can be made to the survey.
-            <br><br>
-            For any further queries, write to us at edbis@iima.ac.in.
+        <!-- State/UT Dropdown Selection (Full Width) -->
+        <div class="input-wrapper full-width">
+            <select id="state" name="state" required>
+                <option value="" disabled selected>Primary State/UT of Production of the Company *</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <!-- Add other states as needed -->
+            </select>
         </div>
     </div>
-</div>
 
-<div class="submit-container">
-    <div class="submit-button-container">
-        <button type="submit">Submit Survey</button>
-        <div class="loading" id="loading">Submitting survey...</div>
+    <p style="font-weight: 600; color: #555; margin-top: 1rem; margin-bottom: 0rem;">
+        Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong><span style="color: var(--primary-color)">State/UT</span></strong> and the business operations of your company:
+    </p>
+    <p style="font-weight: 100; margin-top: 0rem; margin-bottom: 0rem;">
+        <i>(The scale varies from "Very Difficult" to "Very Easy")</i>
+    </p>
+
+    <!-- Questions Table -->
+    <table class="questions-table">
+        <thead>
+            <tr>
+                <th>Ease of</th>
+                <th>Rating</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="questions"></tbody>
+    </table>
+
+    <!-- Participation Question -->
+    <div class="participation-question">
+        <h3>Your Input Matters!</h3>
+        <p>Thank you for your insights. Would you be willing to participate in a detailed follow-up survey to help provide an in-depth assessment of the ease of doing business in Indian states?</p>
+        <div class="participation-options">
+            <label class="participation-option">
+                <input type="radio" name="detailedSurvey" value="yes" required> Yes, I'd love to contribute further!
+            </label>
+            <label class="participation-option">
+                <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
+            </label>
+        </div>
+        <div id="followUpEmailContainer" class="email-container" style="display: none; margin-top: 1rem;">
+            <div class="input-container">
+                <label for="followUpEmail" class="input-label">Please provide your email ID for further correspondence regarding the detailed survey:</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" id="followUpEmail" name="followUpEmail" placeholder="Enter your email ID" required>
+                </div>
+                <small class="error-message" id="emailError" style="display: none;">Please enter a valid email address.</small>
+            </div>
+        </div>
     </div>
-</div>
-        </form>
+
+    <!-- Confidentiality Disclaimer -->
+    <div class="disclaimer-container">
+        <div class="disclaimer">
+            <span class="disclaimer-toggle" onclick="toggleDisclaimer()">Click to view Confidentiality Disclaimer</span>
+            <div class="disclaimer-content" id="disclaimerContent">
+                <strong>CONFIDENTIALITY DISCLAIMER:</strong> This study is being conducted by the Misra Centre for Financial Markets and Economy (MCFME) at the Indian Institute of Management (IIM), Ahmedabad. The study will undertake a nationwide survey annually to collect information from Indian companies on their perception of the business environment. <strong>The information collected during the survey will be exclusively used for the production and dissemination of scholarly work. Company name and any other information that enables identification will be kept confidential.</strong> Non-personally identifiable information and survey responses shared by each respondent will be combined with those gathered from other participants and analysed as part of a group.
+                <br><br>
+                We appreciate your participation in the survey. Click on the <strong>Submit Survey</strong> button to end the survey. Please note that once submitted, no further modifications can be made to the survey.
+                <br><br>
+                For any further queries, write to us at <a href="mailto:edbis@iima.ac.in">edbis@iima.ac.in</a>.
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="submit-container">
+        <div class="submit-button-container">
+            <button type="submit">Submit Survey</button>
+            <div class="loading" id="loading" style="display: none;">Submitting survey...</div>
+        </div>
+    </div>
+</form>
+
+
+
+
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
@@ -984,6 +1015,15 @@ const questions = [
         function getRandomRating() {
     return Math.floor(Math.random() * 5) + 1;
 }
+
+
+function scrollToDisclaimer() {
+    const disclaimer = document.getElementById('disclaimerContent');
+    disclaimer.classList.add('show'); // Make sure the disclaimer is visible
+    disclaimer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
 
  function createQuestions() {
     const questionsContainer = document.getElementById('questions');
