@@ -832,7 +832,26 @@ input[type="text"]::placeholder {
     box-shadow: 0 0 0 3px rgba(28, 71, 125, 0.2);
 }
 
+/* Advanced Media Query for mobile screens */
+@media (max-width: 600px) {
 
+  .questions-table th, .questions-table td {
+    padding: 0.5rem; /* Reduce padding for mobile */
+  }
+
+  .questions-table th:last-child, .questions-table td:last-child {
+    font-size: 0.8rem; /* Further reduce the text size of the last column */
+    width: auto; /* Allow it to adjust to content */
+    white-space: nowrap; /* Prevent wrapping for small text in last column */
+    text-align: right; /* Align right for better presentation */
+  }
+
+
+  /* Further UI tweaks for small screens */
+  .questions-table tr:hover {
+    background-color: rgba(28, 71, 125, 0.1); /* Make hover effect slightly stronger */
+  }
+}
 </style>
 </head>
 <body>
