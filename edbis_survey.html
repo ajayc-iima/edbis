@@ -881,6 +881,16 @@ input[type="text"]::placeholder {
     </span>
 </div>
 
+          <!-- Email Input Field -->
+        <div class="input-wrapper modern-input">
+            <input type="followUpEmail" id="followUpEmail" name="followUpEmail" placeholder="Email ID (Optional)" style="padding-right: 30px;">
+            <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                <i class="fas fa-lock"></i>
+            </span>
+            <small class="error-message" id="emailError" style="display: none; color: red; margin-top: 5px;">Please provide an email address to participate in the detailed survey.</small>
+        </div>
+
+
 
         <!-- CIN/LLPIN/FCRN Input Field -->
         <div class="input-wrapper">
@@ -949,31 +959,20 @@ input[type="text"]::placeholder {
         <tbody id="questions"></tbody>
     </table>
 
-    <!-- Participation Question -->
-    <div class="participation-question">
-        <h3>Your Input Matters!</h3>
-        <p>Thank you for your insights. Would you be willing to participate in a detailed follow-up survey to help provide an in-depth assessment of the ease of doing business in Indian states?</p>
-        <div class="participation-options">
-            <label class="participation-option">
-                <input type="radio" name="detailedSurvey" value="yes" required> Yes, I'd love to contribute further!
-            </label>
-            <label class="participation-option">
-                <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
-            </label>
-        </div>
-        <div id="followUpEmailContainer" class="email-container" style="display: none; margin-top: 1rem;">
-            <div class="input-container">
-                <label for="followUpEmail" class="input-label">Please provide your email ID for further correspondence regarding the detailed survey:</label>
-                <div class="input-wrapper">
-                    <span class="input-icon">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <input type="email" id="followUpEmail" name="followUpEmail" placeholder="Enter your email ID" required>
-                </div>
-                <small class="error-message" id="emailError" style="display: none;">Please enter a valid email address.</small>
-            </div>
-        </div>
+ <!-- Participation Question -->
+<div class="participation-question">
+    <h3>Your Input Matters! ✨</h3>
+    <p>Thank you for your insights. Would you be open to contributing additional input to help provide a deeper understanding of the ease of doing business in Indian states?</p>
+    <div class="participation-options">
+        <label class="participation-option">
+            <input type="radio" name="detailedSurvey" value="yes" required> Yes, I'd love to contribute further! 😊
+        </label>
+        <label class="participation-option">
+            <input type="radio" name="detailedSurvey" value="no" required> No, thank you.
+        </label>
     </div>
+</div>
+
 
     <!-- Confidentiality Disclaimer -->
     <div class="disclaimer-container">
@@ -1058,11 +1057,11 @@ const questions = [
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrwEZa8HZ0YZZHIEH_lEK8sKmuZvbHuhC3u6OEw8oKIf_p0t8zO2uafaZLm41ATEb41w/exec';
         const ratingLabels = ["Very Difficult", "Difficult", "Neutral", "Easy", "Very Easy"];
         const ratings = {};
-        function getRandomRating() {
-    //return Math.floor(Math.random() * 5) + 1;
-     return 3;
-}
 
+// Get random ratings
+function getRandomRating() {
+    return 3; // For now, always set to 'Neutral' (value 3)
+}
 
 function scrollToDisclaimer() {
     const disclaimer = document.getElementById('disclaimerContent');
@@ -1125,6 +1124,25 @@ function scrollToDisclaimer() {
         });
     });
 }
+
+
+document.querySelector('input[name="detailedSurvey"]').addEventListener('change', function(e) {
+    const emailInput = document.getElementById('email');
+    const emailReminderContainer = document.getElementById('emailReminderContainer');
+    
+    if (e.target.value === 'yes') {
+        if (!emailInput.value) {
+            emailReminderContainer.style.display = 'block';
+            emailInput.scrollIntoView({ behavior: 'smooth' });
+            emailInput.focus();
+        } else {
+            emailReminderContainer.style.display = 'none';
+        }
+    } else {
+        emailReminderContainer.style.display = 'none';
+    }
+});
+
 
         function updateProgress() {
             const totalQuestions = questions.length;
@@ -1260,7 +1278,7 @@ function validateForm() {
     if (detailedSurveyValue === 'yes') {
         const followUpEmail = document.getElementById('followUpEmail').value.trim();
         if (!followUpEmail) {
-            alert('Please enter your email for the follow-up survey.');
+            alert('Please enter your email id for the follow-up.');
             document.getElementById('followUpEmail').classList.add('pulse');
             setTimeout(() => document.getElementById('followUpEmail').classList.remove('pulse'), 1000);
             return false;
