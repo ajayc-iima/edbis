@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -695,14 +696,14 @@ input[type="text"]::placeholder {
       <form id="edbisForm">
     <div class="company-info modern-input-container">
         <!-- Company Name Input Field with Lock Icon -->
-       <div class="input-wrapper modern-input" style="position: relative;">
-    <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required style="padding-right: 0px;">
-    <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">
-        <i class="fas fa-lock"></i>
-    </span>
-</div>
+        <div class="input-wrapper modern-input" style="position: relative;">
+            <input type="text" id="companyName" name="companyName" placeholder="Company Name *" required style="padding-right: 0px;">
+            <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">
+                <i class="fas fa-lock"></i>
+            </span>
+        </div>
 
-          <!-- Email Input Field -->
+        <!-- Email Input Field -->
         <div class="input-wrapper modern-input">
             <input type="text" id="followUpEmail" name="followUpEmail" placeholder="Email ID (Optional)" style="padding-right: 0px;">
             <span class="input-icon" onclick="scrollToDisclaimer()" title="Click to view confidentiality disclaimer" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);">
@@ -711,53 +712,56 @@ input[type="text"]::placeholder {
             <small class="error-message" id="emailError" style="display: none; color: red; margin-top: 5px;">Please provide an email address to participate in the detailed survey.</small>
         </div>
 
-
         <!-- State/UT Dropdown Selection (Full Width) -->
-        <div class="input-wrapper modern-input" >
+        <div class="input-wrapper modern-input">
             <select id="state" name="state" required style="background-color:white; padding-left: 5px;">
                 <option value="" disabled selected>Primary State/UT of Production of the Company*</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Ladakh">Ladakh</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
             </select>
         </div>
-    </div>
+
         <!-- CIN/LLPIN/FCRN Input Field -->
         <div class="input-wrapper modern-input">
-            <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)">
+            <input type="text" id="cin" name="cin" placeholder="CIN/LLPIN/FCRN (Optional)" style="padding-right: 0px;">
         </div>
+    </div>
+</form>
+
+  
 
     <p style="font-weight: 600; color: var(--primary-color); margin-top: 1rem; margin-bottom: 0rem;">
         Rate your perception of the following dimensions of interaction between the regulatory framework of the <strong><span style="color: var(--primary-color);">State/UT</span></strong> and the business operations of your company:
