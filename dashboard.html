@@ -4,86 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIMA EDBIS Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @keyframes countdown {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        .spinner-container {
-            position: relative;
-            width: 80px;
-            height: 80px;
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .spinner-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            border-top-color: #4f46e5;
-            animation: countdown 1s linear infinite;
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
-        .spinner-number {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4f46e5;
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        .loading-bar {
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            animation: loading 2s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0% { width: 0; }
+            100% { width: 100%; }
         }
     </style>
-    <meta http-equiv="refresh" content="0; url=https://script.google.com/a/macros/iima.ac.in/s/AKfycbw5F4hBIG52osIUORAuXjd3eJXjplz7wYNLA8jPe1ctEMHYrp_gz3GE0RxUwCdzAyy4WQ/exec">
 </head>
-<body class="bg-gray-50 font-sans antialiased">
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl shadow-md p-8 max-w-md w-full fade-in">
-            <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-2xl font-semibold text-gray-900 mb-2">IIMA EDBIS</h1>
-                <p class="text-sm text-gray-600">Email Dashboard System</p>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans antialiased">
+    <!-- Navigation -->
+    <!-- <nav class="glass-effect fixed w-full top-0 z-50 px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="text-indigo-600 font-bold text-xl">IIMA EDBIS</div>
+            <div class="flex space-x-4">
+                <button class="text-gray-600 hover:text-indigo-600 transition-colors">Help</button>
+                <button class="text-gray-600 hover:text-indigo-600 transition-colors">Settings</button>
+            </div>
+        </div>
+    </nav> -->
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex items-center justify-center p-4 pt-20">
+        <div class="max-w-4xl w-full space-y-8 animate__animated animate__fadeIn">
+            <!-- Welcome Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to IIMA-EDBIS Dashboard</h1>
+                <p class="text-lg text-gray-600">Select your preferred dashboard view below</p>
+                <div class="loading-bar mt-4"></div>
             </div>
 
-            <!-- Loading Animation -->
-            <div class="flex flex-col items-center justify-center space-y-6">
-                <div class="spinner-container">
-                    <div class="spinner-circle"></div>
-                    <div id="spinnerCount" class="spinner-number">3</div>
-                </div>
-                
-                <div class="text-center space-y-2">
-                    <p class="text-sm font-medium text-gray-900">Connecting to Dashboard</p>
-                    <p class="text-xs text-gray-500">Please wait while we redirect you</p>
+
+            <!-- Dashboard Cards -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Email Dashboard Card -->
+                <div class="card glass-effect rounded-xl overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-40 gradient-bg rounded-lg mb-4 flex items-center justify-center text-white">
+                            <i class="fas fa-envelope-open-text fa-3x"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Email Sending Dashboard</h2>
+                        <p class="text-gray-600 mb-4">Manage and Send emails (works with edbis email ids.)</p>
+                        <a href="https://script.google.com/a/macros/iima.ac.in/s/AKfycbw5F4hBIG52osIUORAuXjd3eJXjplz7wYNLA8jPe1ctEMHYrp_gz3GE0RxUwCdzAyy4WQ/exec" 
+                           class="block w-full text-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            Access Email Sending Dashboard
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Manual Redirect Button -->
-                <a href="https://script.google.com/a/macros/iima.ac.in/s/AKfycbw5F4hBIG52osIUORAuXjd3eJXjplz7wYNLA8jPe1ctEMHYrp_gz3GE0RxUwCdzAyy4WQ/exec" 
-                   class="mt-6 w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Access Dashboard
-                </a>
+                <!-- Live Dashboard Card -->
+                <div class="card glass-effect rounded-xl overflow-hidden">
+                    <div class="p-6">
+                        <div class="h-40 gradient-bg rounded-lg mb-4 flex items-center justify-center text-white">
+                            <i class="fas fa-chart-line fa-3x"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Live Dashboard</h2>
+                        <p class="text-gray-600 mb-4">Access real-time analytics and insights</p>
+                        <a href="https://lookerstudio.google.com/reporting/6eea007d-4c17-4ea1-9e62-8dc37023de4" 
+                           class="block w-full text-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                            Launch Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Section -->
+            <div class="mt-12 glass-effect rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">System Status</h3>
+                        <p class="text-green-600">All systems operational</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                        <span class="text-sm text-gray-600">Live</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const spinnerCount = document.getElementById('spinnerCount');
-            let count = 3;
-            
-            const interval = setInterval(() => {
-                count--;
-                if (count < 0) count = 3;
-                spinnerCount.textContent = count;
-            }, 1000);
-        });
-    </script>
+    <!-- Footer -->
+    <footer class="glass-effect py-4 text-center text-gray-600 mt-8">
+        <p>&copy; 2024 IIMA EDBIS. All rights reserved.</p>
+    </footer>
 </body>
 </html>
