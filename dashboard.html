@@ -5,45 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIMA EDBIS Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-        }
-        
-        .glass-bg {
+        /* Custom Styles */
+        .glass-effect {
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        .card-hover {
-            transition: all 0.3s ease;
+
+        .glass-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        }
-        
+
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .nav-blur {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        
-        .pulse-dot {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
         }
 
         .loading-bar {
@@ -52,16 +29,49 @@
             background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             animation: loading 2s ease-in-out infinite;
         }
-        
+
         @keyframes loading {
             0% { width: 0; }
             100% { width: 100%; }
+        }
+
+        .live-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
     <!-- Navigation -->
-    <nav class="nav-blur fixed w-full z-10 border-b border-gray-200">
+    <nav class="fixed w-full z-50 glass-effect">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center space-x-3">
@@ -69,7 +79,7 @@
                     <span class="font-semibold text-gray-900">IIMA EDBIS</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <span class="h-2 w-2 bg-green-500 rounded-full pulse-dot"></span>
+                    <span class="h-2 w-2 bg-green-500 rounded-full live-dot"></span>
                     <span class="text-sm text-gray-600">Live</span>
                 </div>
             </div>
@@ -80,55 +90,63 @@
     <main class="pt-20 pb-12 px-4">
         <div class="max-w-7xl mx-auto">
             <!-- Welcome Section -->
-            <div class="text-center mb-12 animate__animated animate__fadeIn">
+            <div class="text-center mb-12 animate-fade-in">
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to IIMA-EDBIS Dashboard</h1>
-                <p class="text-lg text-gray-600">Select your preferred dashboard view below</p>
-                <div class="loading-bar mt-4"></div>
+                <p class="text-lg text-gray-600">Live Tracking of Email Activity and Survey Insights</p>
+                <div class="loading-bar mt-4 mx-auto"></div>
             </div>
 
             <!-- Dashboard Grid -->
             <div class="grid gap-6 mb-12">
-                <!-- Top Row - 2 Cards -->
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Email Dashboard Card -->
-                    <div class="glass-bg rounded-xl p-6 card-hover">
-                        <div class="h-40 gradient-bg rounded-lg mb-4 flex items-center justify-center text-white">
-                            <i class="fas fa-envelope-open-text fa-3x"></i>
+                <!-- Top Row -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Email Dashboard Card (Reduced to 1/3 width) -->
+                    <div class="glass-effect rounded-xl p-6" id="emailCard">
+                        <div class="h-32 gradient-bg rounded-lg mb-4 flex items-center justify-center text-white">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
                         </div>
-                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Email Sending Dashboard</h2>
-                        <p class="text-gray-600 mb-4">Manage and Send emails (works with edbis email id)</p>
-                        <a href="https://script.google.com/a/macros/iima.ac.in/s/AKfycbw5F4hBIG52osIUORAuXjd3eJXjplz7wYNLA8jPe1ctEMHYrp_gz3GE0RxUwCdzAyy4WQ/exec" target="_blank" 
-                           class="block w-full text-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                            Access Email Sending Dashboard
+                        <h2 class="text-lg font-semibold text-gray-900 mb-2">Email Sending Dashboard</h2>
+                        <p class="text-sm text-gray-600 mb-4">Manage and Send emails (works with edbis email id)</p>
+                        <a href="https://script.google.com/a/macros/iima.ac.in/s/AKfycbw5F4hBIG52osIUORAuXjd3eJXjplz7wYNLA8jPe1ctEMHYrp_gz3GE0RxUwCdzAyy4WQ/exec" 
+                           target="_blank" 
+                           class="block w-full text-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm">
+                            Access Dashboard
                         </a>
                     </div>
 
-                    <!-- Live Dashboard Card -->
-                    <div class="glass-bg rounded-xl p-6 card-hover">
-                        <div class="h-40 gradient-bg rounded-lg mb-4 flex items-center justify-center text-white">
-                            <i class="fas fa-chart-line fa-3x"></i>
+                    <!-- Embedded Dashboard (Expanded to 2/3 width) -->
+                   
+                    <div class="glass-effect rounded-xl p-6 md:col-span-2">
+                         <h2 class="text-lg font-semibold text-gray-900 mb-2">Real-Time Email Activity Dashboard</h2>
+                         <p class="text-sm text-gray-600 mb-4">Access real-time status of emails sent (works with iima email id)</p>
+
+                        <div class="iframe-container">
+                            <iframe src="https://lookerstudio.google.com/embed/reporting/6eea007d-4c17-4ea1-9e62-8dc37023de4d/page/A"
+                                    allowfullscreen
+                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                            </iframe>
                         </div>
-                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Real-Time Email Activity Dashboard</h2>
-                        <p class="text-gray-600 mb-4">Access real-time status of emails sent</p>
-                        <a href="https://lookerstudio.google.com/reporting/6eea007d-4c17-4ea1-9e62-8dc37023de4d" target="_blank"
-                           class="block w-full text-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                            Launch Dashboard
-                        </a>
                     </div>
                 </div>
 
                 <!-- Survey Response Card -->
-                <div class="glass-bg rounded-xl p-6 card-hover">
+                <div class="glass-effect rounded-xl p-6">
                     <h2 class="text-xl font-semibold text-gray-900 mb-2">IIMA-EDBIS Survey Response Dashboard</h2>
-                    <p class="text-gray-600 mb-4">Access real-time state wise reponses (Works with edbis email id)</p>
-                    <div class="rounded-lg overflow-hidden shadow-sm">
-                        <iframe width="100%" height="500" src="https://lookerstudio.google.com/embed/reporting/459cb151-b242-4d1f-817f-6a0b56976ee1/page/A" frameborder="0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                    <p class="text-gray-600 mb-4">Access real-time state wise responses (Works with edbis email id)</p>
+                    <div class="iframe-container">
+                        <iframe src="https://lookerstudio.google.com/embed/reporting/459cb151-b242-4d1f-817f-6a0b56976ee1/page/A"
+                                allowfullscreen
+                                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                        </iframe>
                     </div>
                 </div>
             </div>
 
             <!-- Status Section -->
-            <div class="glass-bg rounded-xl p-6">
+            <div class="glass-effect rounded-xl p-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">System Status</h3>
@@ -141,7 +159,7 @@
                     </div>
                     <div class="text-right">
                         <p class="text-sm text-gray-600">Last updated</p>
-                        <p class="text-sm font-medium text-gray-900">Just now</p>
+                        <p class="text-sm font-medium text-gray-900" id="lastUpdated">Just now</p>
                     </div>
                 </div>
             </div>
@@ -149,10 +167,54 @@
     </main>
 
     <!-- Footer -->
-    <footer class="glass-bg border-t border-gray-200 mt-8">
+    <footer class="glass-effect mt-8">
         <div class="max-w-7xl mx-auto py-4 px-4">
             <p class="text-center text-gray-600">&copy; 2024 IIMA EDBIS. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Update timestamp
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent = " 26/12/2024 7:51:30 PM";
+        }
+        setInterval(updateTimestamp, 60000);
+        updateTimestamp();
+
+        // Add loading animation when clicking email dashboard link
+        document.querySelector('#emailCard a').addEventListener('click', function() {
+            this.innerHTML = '<span class="inline-flex items-center">Loading... <svg class="animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></span>';
+            setTimeout(() => {
+                this.innerHTML = 'Access Dashboard';
+            }, 2000);
+        });
+
+        // Lazy load iframes
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframes = document.querySelectorAll('iframe');
+            const options = {
+                root: null,
+                rootMargin: '50px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        const src = iframe.getAttribute('src');
+                        if (src) {
+                            iframe.setAttribute('data-src', src);
+                            iframe.setAttribute('src', src);
+                        }
+                        observer.unobserve(iframe);
+                    }
+                });
+            }, options);
+
+            iframes.forEach(iframe => observer.observe(iframe));
+        });
+    </script>
 </body>
 </html>
