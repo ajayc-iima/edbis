@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIMA EDBIS Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <style>
         /* Custom Styles */
         .glass-effect {
@@ -118,13 +121,12 @@
                     </div>
 
                     <!-- Embedded Dashboard (Expanded to 2/3 width) -->
-                   
                     <div class="glass-effect rounded-xl p-6 md:col-span-2">
-                         <h2 class="text-lg font-semibold text-gray-900 mb-2">Real-Time Email Activity Dashboard</h2>
-                         <p class="text-sm text-gray-600 mb-4">Access real-time status of emails sent (works with iima email id)</p>
+                        <h2 class="text-lg font-semibold text-gray-900 mb-2">Real-Time Email Activity Dashboard</h2>
+                        <p class="text-sm text-gray-600 mb-4">Access real-time status of emails sent (works with iima email id)</p>
 
                         <div class="iframe-container">
-                            <iframe src="https://lookerstudio.google.com/embed/reporting/6eea007d-4c17-4ea1-9e62-8dc37023de4d/page/A"
+                            <iframe src="https://lookerstudio.google.com/embed/reporting/6eea007d-4c17-4ea1-9e62-8dc37023de4d/page/A?cacheBuster=${new Date().getTime()}"
                                     allowfullscreen
                                     sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
                             </iframe>
@@ -137,7 +139,7 @@
                     <h2 class="text-xl font-semibold text-gray-900 mb-2">IIMA-EDBIS Survey Response Dashboard</h2>
                     <p class="text-gray-600 mb-4">Access real-time state wise responses (Works with edbis email id)</p>
                     <div class="iframe-container">
-                        <iframe src="https://lookerstudio.google.com/embed/reporting/459cb151-b242-4d1f-817f-6a0b56976ee1/page/A"
+                        <iframe src="https://lookerstudio.google.com/embed/reporting/459cb151-b242-4d1f-817f-6a0b56976ee1/page/A?cacheBuster=${new Date().getTime()}"
                                 allowfullscreen
                                 sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
                         </iframe>
@@ -177,18 +179,18 @@
         // Update timestamp
         function updateTimestamp() {
             const now = new Date();
-            document.getElementById('lastUpdated').textContent = " 26/12/2024 7:51:30 PM";
+            document.getElementById('lastUpdated').textContent = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
         }
         setInterval(updateTimestamp, 60000);
         updateTimestamp();
 
-        // Add loading animation when clicking email dashboard link
-        document.querySelector('#emailCard a').addEventListener('click', function() {
-            this.innerHTML = '<span class="inline-flex items-center">Loading... <svg class="animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></span>';
-            setTimeout(() => {
-                this.innerHTML = 'Access Dashboard';
-            }, 2000);
-        });
+        // Reload iframes every 5 minutes
+        setInterval(() => {
+            document.querySelectorAll('iframe').forEach(iframe => {
+                const src = iframe.getAttribute('src');
+                iframe.setAttribute('src', src); // Reload iframe
+            });
+        }, 300000);
 
         // Lazy load iframes
         document.addEventListener('DOMContentLoaded', function() {
