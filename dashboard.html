@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -253,6 +253,647 @@
             }, options);
 
             iframes.forEach(iframe => observer.observe(iframe));
+        });
+    </script>
+</body>
+</html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIMA EDBIS Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --secondary: #A855F7;
+            --accent: #EC4899;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --success: #10B981;
+            --card-radius: 28px;
+            --base-transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0F172A;
+            color: var(--light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 3D Cards */
+        .card-3d {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--card-radius);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: var(--base-transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle at 30% 30%,
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 50%,
+                transparent 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .card-3d .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Modern Gradients */
+        .gradient-bg {
+            background: linear-gradient(to bottom right, 
+                rgba(99, 102, 241, 0.8), 
+                rgba(168, 85, 247, 0.8), 
+                rgba(236, 72, 153, 0.6)
+            );
+        }
+
+        .glass-gradient {
+            background: linear-gradient(
+                135deg,
+                rgba(99, 102, 241, 0.3) 0%,
+                rgba(168, 85, 247, 0.2) 50%,
+                rgba(236, 72, 153, 0.1) 100%
+            );
+        }
+
+        /* Animated Border */
+        .animated-border {
+            position: relative;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+        }
+
+        .animated-border::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(
+                45deg,
+                var(--primary),
+                var(--secondary),
+                var(--accent),
+                var(--primary)
+            );
+            background-size: 400% 400%;
+            z-index: -1;
+            border-radius: calc(var(--card-radius) + 2px);
+            animation: border-animation 8s linear infinite;
+        }
+
+        @keyframes border-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .animated-bg .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: blob-move 25s infinite alternate;
+        }
+
+        .animated-bg .blob:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 500px;
+            height: 500px;
+            background: var(--primary);
+            animation-delay: 0s;
+        }
+
+        .animated-bg .blob:nth-child(2) {
+            top: 60%;
+            left: 70%;
+            width: 600px;
+            height: 600px;
+            background: var(--secondary);
+            animation-delay: -5s;
+        }
+
+        .animated-bg .blob:nth-child(3) {
+            top: 70%;
+            left: 20%;
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            animation-delay: -10s;
+        }
+
+        @keyframes blob-move {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Mesh Gradient for Header */
+        .mesh-gradient {
+            background: 
+                radial-gradient(at 0% 0%, hsla(247, 89%, 70%, 0.3) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(280, 91%, 65%, 0.3) 0, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(315, 98%, 60%, 0.3) 0, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(258, 96%, 67%, 0.3) 0, transparent 50%);
+        }
+
+        /* Animated Icons */
+        .icon-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Loading Animation */
+        .loading-bar {
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            background-size: 200% 200%;
+            animation: loading 2s ease-in-out infinite;
+            border-radius: 3px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 0% 50%; width: 0%; opacity: 1; }
+            50% { background-position: 100% 50%; width: 100%; opacity: 0.7; }
+            100% { background-position: 0% 50%; width: 100%; opacity: 0; }
+        }
+
+        /* Live Dot */
+        .live-dot {
+            position: relative;
+        }
+
+        .live-dot::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .live-dot::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--success);
+            border-radius: 50%;
+            animation: ripple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        /* Iframe Container */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+        }
+
+        .email-card {
+            grid-column: span 12;
+            grid-row: 1;
+        }
+
+        .overview-card {
+            grid-column: span 12;
+            grid-row: 2;
+        }
+
+        .survey-card {
+            grid-column: span 12;
+            grid-row: 3;
+        }
+
+        @media (min-width: 768px) {
+            .email-card {
+                grid-column: span 4;
+                grid-row: 1;
+            }
+            
+            .overview-card {
+                grid-column: span 8;
+                grid-row: 1;
+            }
+            
+            .survey-card {
+                grid-column: span 12;
+                grid-row: 2;
+            }
+        }
+
+        /* Modern Button */
+        .btn-futuristic {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-futuristic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-futuristic:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-futuristic:hover::before {
+            opacity: 1;
+        }
+
+        /* Animated Cards Entrance */
+        .fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation Delays */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Navigation */
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        /* Text Effects */
+        .text-3d {
+            text-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.1),
+                0 2px 0 rgba(255, 255, 255, 0.05),
+                0 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Grid Lines Background */
+        .grid-lines {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="grid-lines flex flex-col min-h-screen">
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-light">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="h-12 w-12 rounded-xl animated-border glass-gradient flex items-center justify-center text-white font-bold text-xl icon-float">
+                        <span class="text-3d">IIMA</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-gray-100 text-3d">IIMA-EDBIS</span>
+                        <span class="text-xs text-gray-400">Advanced Analytics & Intelligence Platform</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 glass px-4 py-2 rounded-full">
+                    <div class="live-dot w-2 h-2"></div>
+                    <span class="text-sm font-medium text-gray-300">Real-time</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 px-6 flex-grow">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Email Dashboard Card -->
+                <div class="card-3d p-8 email-card fade-up delay-1">
+                    <div class="content">
+                        <div class="relative h-40 gradient-bg rounded-2xl mb-6 overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <svg class="w-20 h-20 text-white opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div class="absolute inset-0 grid-lines opacity-30"></div>
+                        </div>
+                        <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-3">Email Drafting Portal</h2>
+                        <p class="text-gray-400 mb-6 leading-relaxed">Advanced email automation and analytics for EDBIS users</p>
+                        <a href="https://script.google.com/a/macros/iima.ac.in/s/AKfycbyDnz9mDLsJ6COwdpdpFMCskTo5EwbvN87yuRQZxxRyeNwbgRuYFUi4mQwPDtE7IiGR/exec" 
+                           target="_blank" 
+                           class="btn-futuristic block w-full text-center px-6 py-4 text-white rounded-xl font-medium">
+                            Access Email Portal
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Embedded Dashboard -->
+                <div class="card-3d p-8 overview-card fade-up delay-2">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-3">Survey Response Analytics</h2>
+                        <div class="iframe-container animated-border">
+                            <iframe data-src="https://lookerstudio.google.com/embed/reporting/459cb151-b242-4d1f-817f-6a0b56976ee1/page/A"
+                                    allowfullscreen
+                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Survey Response Card -->
+                <div class="card-3d p-8 survey-card fade-up delay-3">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-red-400 mb-3">Geographical Response Distribution</h2>
+                        <p class="text-gray-400 mb-4">State-wise response tracking with real-time visualization</p>
+                        <div class="iframe-container animated-border">
+                            <iframe data-src="https://lookerstudio.google.com/embed/reporting/d0684182-8436-48a7-87c3-e5cb8cd6d87e/page/A"
+                                    allowfullscreen
+                                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-light mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-center md:text-left">
+                    <p class="text-gray-400 font-medium">&copy; 2024 IIMA EDBIS. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lazy load iframes
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyLoadIframes = () => {
+                const iframes = document.querySelectorAll('iframe[data-src]');
+                
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '100px',
+                    threshold: 0.1
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const iframe = entry.target;
+                            
+                            // Create and show loading indicator
+                            const container = iframe.parentElement;
+                            const loader = document.createElement('div');
+                            loader.className = 'loading-bar w-full absolute top-0 left-0';
+                            container.appendChild(loader);
+                            
+                            // Load iframe with cache busting
+                            const src = iframe.getAttribute('data-src');
+                            const cacheBuster = `?cacheBuster=${Date.now()}`;
+                            
+                            iframe.style.opacity = '0';
+                            iframe.setAttribute('src', src + cacheBuster);
+                            iframe.removeAttribute('data-src');
+                            
+                            iframe.addEventListener('load', () => {
+                                if (loader.parentNode) {
+                                    loader.parentNode.removeChild(loader);
+                                }
+                                iframe.style.opacity = '1';
+                            });
+                            
+                            observer.unobserve(iframe);
+                        }
+                    });
+                }, observerOptions);
+                
+                iframes.forEach(iframe => observer.observe(iframe));
+            };
+            
+            lazyLoadIframes();
+            
+            // Refresh iframes periodically
+            const refreshIframes = () => {
+                document.querySelectorAll('iframe').forEach((iframe, index) => {
+                    setTimeout(() => {
+                        iframe.style.opacity = '0';
+                        
+                        const container = iframe.parentElement;
+                        const loader = document.createElement('div');
+                        loader.className = 'loading-bar w-full absolute top-0 left-0';
+                        container.appendChild(loader);
+                        
+                        setTimeout(() => {
+                            const src = iframe.getAttribute('src').split('?')[0];
+                            const newSrc = `${src}?cacheBuster=${Date.now()}`;
+                            iframe.setAttribute('src', newSrc);
+                            
+                            iframe.onload = () => {
+                                if (loader.parentNode) {
+                                    loader.parentNode.removeChild(loader);
+                                }
+                                iframe.style.opacity = '1';
+                            };
+                        }, 800);
+                    }, index * 300);
+                });
+            };
+            setInterval(refreshIframes, 300000); // Refresh every 5 minutes
+            
+            // Add parallax effect to cards
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.card-3d');
+                
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const moveX = (x - centerX) / 20;
+                    const moveY = (y - centerY) / 20;
+                    
+                    // Only apply effect if mouse is somewhat close to the card
+                    const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+                    const maxDistance = Math.sqrt(Math.pow(rect.width, 2) + Math.pow(rect.height, 2)) / 2;
+                    
+                    if (distance < maxDistance) {
+                        card.style.transform = `translateY(-5px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
+                    } else {
+                        card.style.transform = 'translateY(-5px) rotateX(0deg) rotateY(0deg)';
+                    }
+                });
+            });
+            
+            // Smooth card reveal on scroll
+            const fadeElements = document.querySelectorAll('.fade-up');
+            
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        animationObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+                animationObserver.observe(element);
+            });
         });
     </script>
 </body>
